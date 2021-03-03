@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ClassLib;
 
 namespace KaspiLabPjt
 {
@@ -10,7 +7,7 @@ namespace KaspiLabPjt
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ClassLib.HelloClass.HelloWorld();
             Console.ReadKey();
         }
     }

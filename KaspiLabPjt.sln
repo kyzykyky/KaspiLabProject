@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaspiLabPjt", "KaspiLabPjt\KaspiLabPjt.csproj", "{AE6A82CC-71A1-4689-B55D-23F6A604738F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLib", "ClassLib\ClassLib.csproj", "{A9FA6270-7965-44A2-805C-258F20B271D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{AE6A82CC-71A1-4689-B55D-23F6A604738F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE6A82CC-71A1-4689-B55D-23F6A604738F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE6A82CC-71A1-4689-B55D-23F6A604738F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9FA6270-7965-44A2-805C-258F20B271D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9FA6270-7965-44A2-805C-258F20B271D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9FA6270-7965-44A2-805C-258F20B271D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9FA6270-7965-44A2-805C-258F20B271D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
