@@ -1,5 +1,7 @@
 ﻿using System;
-using ClassLib;
+using Lesson_5_Warehouse.Products;
+using Lesson_5_Warehouse.Employees;
+using Lesson_5_Warehouse.Warehouses;
 
 namespace KaspiLabPjt
 {
@@ -7,20 +9,86 @@ namespace KaspiLabPjt
     {
         static void Main(string[] args)
         {
-            var lift = new Lift(8, 10);
+            Employee manager_1 = new Manager("Султан", Manager.Access_Levels.Second);
+            Employee manager_2 = new Manager("Борис", Manager.Access_Levels.Second);
+            Employee manager_3 = new Manager("Бен", Manager.Access_Levels.First);
+            Employee manager_4 = new Manager("Глеб", Manager.Access_Levels.Third);
+            Employee manager_5 = new Manager("Иван", Manager.Access_Levels.First);
 
-            lift.Call_Lift(3);
+            Warehouse[] warehouses = new Warehouse[3];
+            warehouses[0] = new Warehouse("Алматы", 500, Warehouse.Warehouse_Types.Indoor, (Manager)manager_1);
+            warehouses[1] = new Warehouse("Нур-Султан", 1000, Warehouse.Warehouse_Types.Outdoor, (Manager)manager_2);
+            warehouses[2] = new Warehouse("Караганда", 800, Warehouse.Warehouse_Types.Indoor, (Manager)manager_3);
 
-            lift.People_enter_or_exit_Lift(7);
+            Product rp_1 = new Regular_Product("Airbook", "Made by Apple", "00001001", 350000, "70 x 40 x 10", 5);
+            Product rp_2 = new Regular_Product("Zenbook", "Made by Asus", "00001002", 250000, "60 x 35 x 10", 6);
 
-            lift.Call_Lift(6);
-            lift.People_enter_or_exit_Lift(-3);
-            lift.Call_Lift(6);
-            lift.People_enter_or_exit_Lift(6);
+            Product ovp_1 = new Overall_Product("Шкаф", "Made in China", "00002001", 120000, "200 x 100 x 70", 90);
+            Product ovp_2 = new Overall_Product("Буфет", "Made in Russia", "00002002", 145000, "60 x 60 x 50", 50);
 
-            lift.Call_Lift(1);
-            lift.People_enter_or_exit_Lift(-111);
-            lift.People_enter_or_exit_Lift(0);
+            Product bp_1 = new Bulk_Product("Сахарный песок", "Made in Kazakhstan", "00010001", 400, 900);
+            Product bp_2 = new Bulk_Product("Соль поваренная", "Made in Turkmenistan", "00010051", 150, 1010);
+
+            Product lp_1 = new Liquid_Product("Питьевая вода", "Extracted in Almaty", "00020001", 100, 1000);
+            Product lp_2 = new Liquid_Product("Коровье молоко", "From south Kazakhstan", "00050001", 300, 1033);
+
+            // Назначение ответственного за склад менеджера - вызовет ошибку так как уровень менеджера_4 не соответствует необходимому
+            //warehouses[0].Responsible_Manager = (Manager)manager_4;
+            warehouses[0].Responsible_Manager = (Manager)manager_5;
+
+
+            // Добавление товаров на склад
+            Console.WriteLine(warehouses[0].Add_Product(rp_1, 5));
+            Console.WriteLine(warehouses[0].Add_Product(rp_2, 7));
+            Console.WriteLine(warehouses[0].Add_Product(bp_2, 200));
+            Console.WriteLine(warehouses[1].Add_Product(ovp_1, 15));
+            Console.WriteLine(warehouses[1].Add_Product(ovp_2, 25));
+            Console.WriteLine(warehouses[1].Add_Product(lp_2, 120));
+            //Console.WriteLine(warehouses[1].Add_Product(bp_1, 150)); Сыпучий товар на открытый склад не добавится
+            Console.WriteLine();
+
+            // Перемещение товаров между складами
+            Console.WriteLine(warehouses[0].Transfer_Product(warehouses[1], lp_1, 110));
+            Console.WriteLine(warehouses[0].Add_Product(lp_1, 200));
+            Console.WriteLine(warehouses[0].Transfer_Product(warehouses[1], lp_1, 110));
+            Console.WriteLine(warehouses[0].Transfer_Product(warehouses[1], rp_1, 2));
+            Console.WriteLine(warehouses[0].Transfer_Product(warehouses[2], rp_2, 3));
+            Console.WriteLine();
+
+            // Поиск товара по SKU + подсчет суммы всех товаров на всех складах
+            string sku_1 = rp_1.SKU;
+            string sku_2 = rp_2.SKU;
+            string sku_3 = "0001234";
+
+            float sum = 0;
+            foreach (var wh in warehouses)
+            {
+                Console.WriteLine(wh.Search_Product_By_SKU(sku_1));
+                Console.WriteLine(wh.Search_Product_By_SKU(sku_2));
+                Console.WriteLine(wh.Search_Product_By_SKU(sku_3));
+                Console.WriteLine();
+
+                sum += wh.Total_Products_Price();
+            }
+            Console.WriteLine($"Сумма товаров на всех складах = {sum}\n");
+
+
+            //Реализовать поиск склада, на котором есть определенный товар в нужном количестве.
+            Console.WriteLine("Введите название необходимого товара:");
+            string name = Console.ReadLine(); // Airbook
+            Console.WriteLine("Введите количество необходимого товара:");
+            int quantity = Convert.ToInt32(Console.ReadLine());
+
+            foreach (var wh in warehouses)
+            {
+                foreach (var p in wh.Warehouse_Products.Keys)
+                {
+                    if (p.Name == name && wh.Warehouse_Products[p] >= quantity)
+                    {
+                        Console.WriteLine($"Товар {name} имеется на складе в {wh.Address} в количестве {wh.Warehouse_Products[p]} {p.unit_measure}");
+                    }
+                }
+            }
 
             Console.ReadKey();
         }

@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE6A82CC-71A1-4689-B55D-23F6A604738F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>KaspiLabPjt</RootNamespace>
-    <AssemblyName>KaspiLabPjt</AssemblyName>
+    <ProjectGuid>{4B38D441-5919-470F-A22E-89A13F1C20D0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lesson_5_Warehouse</RootNamespace>
+    <AssemblyName>Lesson 5 Warehouse</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,21 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Products\Countable_Product.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Employees\Employee.cs" />
+    <Compile Include="Employees\Loader.cs" />
+    <Compile Include="Employees\Manager.cs" />
+    <Compile Include="Products\Bulk_Product.cs" />
+    <Compile Include="Products\Liquid_Product.cs" />
+    <Compile Include="Products\Overall_Product.cs" />
+    <Compile Include="Products\Product.cs" />
+    <Compile Include="Products\Regular_Product.cs" />
+    <Compile Include="Products\Uncountable_Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Warehouses\IWarehouse_Operations.cs" />
+    <Compile Include="Warehouses\Warehouse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Content Include="info.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ClassLib\ClassLib.csproj">
-      <Project>{a9fa6270-7965-44a2-805c-258f20b271d3}</Project>
-      <Name>ClassLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lesson 5 Warehouse\Lesson 5 Warehouse.csproj">
-      <Project>{4b38d441-5919-470f-a22e-89a13f1c20d0}</Project>
-      <Name>Lesson 5 Warehouse</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
