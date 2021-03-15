@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common Structs\Person.cs" />
+    <Compile Include="Common Structs\Size.cs" />
     <Compile Include="Products\Countable_Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Employees\Employee.cs" />

@@ -23,7 +23,7 @@ namespace Lesson_5_Warehouse.Warehouses
                     Warehouse_Employees.Add(value);
                     _responsible_manager = value; 
                 }
-                else throw new ArgumentOutOfRangeException("Данный сотрудник не может быть назначен менеджером");
+                else throw new ArgumentException("Данный сотрудник не может быть назначен ответственным за склад менеджером");
             } 
         }
 

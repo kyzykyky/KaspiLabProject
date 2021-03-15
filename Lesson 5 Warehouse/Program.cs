@@ -29,11 +29,11 @@ namespace Lesson_5_Warehouse
             warehouses[2] = new Warehouse(new Address("Карагандинская область", "Караганда", "Карасай Батыра", "5"),
                 800, Warehouse.Warehouse_Types.Indoor, (Manager)manager_3);
 
-            Product rp_1 = new Regular_Product("Airbook", "Made by Apple", "00001001", 350000, "70 x 40 x 10", 5);
-            Product rp_2 = new Regular_Product("Zenbook", "Made by Asus", "00001002", 250000, "60 x 35 x 10", 6);
+            Product rp_1 = new Regular_Product("Airbook", "Made by Apple", "00001001", 350000, new Size(70,40,10), 5);
+            Product rp_2 = new Regular_Product("Zenbook", "Made by Asus", "00001002", 250000, new Size(60,35,10), 6);
 
-            Product ovp_1 = new Overall_Product("Шкаф", "Made in China", "00002001", 120000, "200 x 100 x 70", 90);
-            Product ovp_2 = new Overall_Product("Буфет", "Made in Russia", "00002002", 145000, "60 x 60 x 50", 50);
+            Product ovp_1 = new Overall_Product("Шкаф", "Made in China", "00002001", 120000, new Size(200,100,70), 90);
+            Product ovp_2 = new Overall_Product("Буфет", "Made in Russia", "00002002", 145000, new Size(60,60,50), 50);
 
             Product bp_1 = new Bulk_Product("Сахарный песок", "Made in Kazakhstan", "00010001", 400, 900);
             Product bp_2 = new Bulk_Product("Соль поваренная", "Made in Turkmenistan", "00010051", 150, 1010);
@@ -42,7 +42,14 @@ namespace Lesson_5_Warehouse
             Product lp_2 = new Liquid_Product("Коровье молоко", "From south Kazakhstan", "00050001", 300, 1033);
 
             // Назначение ответственного за склад менеджера - вызовет ошибку так как уровень менеджера_4 не соответствует необходимому
-            //warehouses[0].Responsible_Manager = (Manager)manager_4;
+            try
+            {
+                warehouses[0].Responsible_Manager = (Manager)manager_4;
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Данный сотрудник не может быть назначен ответственным за склад менеджером");
+            }
             warehouses[0].Responsible_Manager = (Manager)manager_5;
 
 
@@ -53,7 +60,14 @@ namespace Lesson_5_Warehouse
             Console.WriteLine(warehouses[1].Add_Product(ovp_1, 15));
             Console.WriteLine(warehouses[1].Add_Product(ovp_2, 25));
             Console.WriteLine(warehouses[1].Add_Product(lp_2, 120));
-            //Console.WriteLine(warehouses[1].Add_Product(bp_1, 150)); Сыпучий товар на открытый склад не добавится
+            try
+            {
+                warehouses[1].Add_Product(bp_1, 150);    // Сыпучий товар на открытый склад не добавится
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Сыпучий товар не может быть добавлен на открытый склад");
+            }
             Console.WriteLine();
 
             // Перемещение товаров между складами

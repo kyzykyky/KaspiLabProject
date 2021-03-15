@@ -10,8 +10,8 @@ namespace KaspiLabPjt
     {
         static void Main(string[] args)
         {
-            Employee manager_1 = new Manager(new Person("Иван", "Иванов", "777732112340", "000123000321", 
-                new Address("Алматинская область","Алматы","Гоголя", "17", "Квартира 3"), new DateTime(1990, 6, 12)), Manager.Access_Levels.Second);
+            Employee manager_1 = new Manager(new Person("Иван", "Иванов", "777732112340", "000123000321",
+                new Address("Алматинская область", "Алматы", "Гоголя", "17", "Квартира 3"), new DateTime(1990, 6, 12)), Manager.Access_Levels.Second);
             Employee manager_2 = new Manager(new Person("Борис", "Сарматов", "7707431334", "000123000123",
                 new Address("Акмолинская область", "Нур-Султан", "Абая", "63", "Квартира 24"), new DateTime(1989, 5, 22)), Manager.Access_Levels.Second);
             Employee manager_3 = new Manager(new Person("Султан", "Рамазанов", "77013232234", "000121230321",
@@ -22,18 +22,18 @@ namespace KaspiLabPjt
                 new Address("Алматинская область", "Талдыкорган", "Алтынсарина", "7"), new DateTime(1985, 2, 3)), Manager.Access_Levels.First);
 
             Warehouse[] warehouses = new Warehouse[3];
-            warehouses[0] = new Warehouse(new Address("Алматинская область", "Алматы", "Суинбая", "65"), 
+            warehouses[0] = new Warehouse(new Address("Алматинская область", "Алматы", "Суинбая", "65"),
                 500, Warehouse.Warehouse_Types.Indoor, (Manager)manager_1);
-            warehouses[1] = new Warehouse(new Address("Акмолинская область", "Нур-Султан", "Джангильдина", "4Б"), 
+            warehouses[1] = new Warehouse(new Address("Акмолинская область", "Нур-Султан", "Джангильдина", "4Б"),
                 1000, Warehouse.Warehouse_Types.Outdoor, (Manager)manager_2);
-            warehouses[2] = new Warehouse(new Address("Карагандинская область", "Караганда", "Карасай Батыра", "5"), 
+            warehouses[2] = new Warehouse(new Address("Карагандинская область", "Караганда", "Карасай Батыра", "5"),
                 800, Warehouse.Warehouse_Types.Indoor, (Manager)manager_3);
 
-            Product rp_1 = new Regular_Product("Airbook", "Made by Apple", "00001001", 350000, "70 x 40 x 10", 5);
-            Product rp_2 = new Regular_Product("Zenbook", "Made by Asus", "00001002", 250000, "60 x 35 x 10", 6);
+            Product rp_1 = new Regular_Product("Airbook", "Made by Apple", "00001001", 350000, new Size(70, 40, 10), 5);
+            Product rp_2 = new Regular_Product("Zenbook", "Made by Asus", "00001002", 250000, new Size(60, 35, 10), 6);
 
-            Product ovp_1 = new Overall_Product("Шкаф", "Made in China", "00002001", 120000, "200 x 100 x 70", 90);
-            Product ovp_2 = new Overall_Product("Буфет", "Made in Russia", "00002002", 145000, "60 x 60 x 50", 50);
+            Product ovp_1 = new Overall_Product("Шкаф", "Made in China", "00002001", 120000, new Size(200, 100, 70), 90);
+            Product ovp_2 = new Overall_Product("Буфет", "Made in Russia", "00002002", 145000, new Size(60, 60, 50), 50);
 
             Product bp_1 = new Bulk_Product("Сахарный песок", "Made in Kazakhstan", "00010001", 400, 900);
             Product bp_2 = new Bulk_Product("Соль поваренная", "Made in Turkmenistan", "00010051", 150, 1010);
@@ -42,7 +42,14 @@ namespace KaspiLabPjt
             Product lp_2 = new Liquid_Product("Коровье молоко", "From south Kazakhstan", "00050001", 300, 1033);
 
             // Назначение ответственного за склад менеджера - вызовет ошибку так как уровень менеджера_4 не соответствует необходимому
-            //warehouses[0].Responsible_Manager = (Manager)manager_4;
+            try
+            {
+                warehouses[0].Responsible_Manager = (Manager)manager_4;
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Данный сотрудник не может быть назначен ответственным за склад менеджером");
+            }
             warehouses[0].Responsible_Manager = (Manager)manager_5;
 
 
@@ -53,7 +60,14 @@ namespace KaspiLabPjt
             Console.WriteLine(warehouses[1].Add_Product(ovp_1, 15));
             Console.WriteLine(warehouses[1].Add_Product(ovp_2, 25));
             Console.WriteLine(warehouses[1].Add_Product(lp_2, 120));
-            //Console.WriteLine(warehouses[1].Add_Product(bp_1, 150)); Сыпучий товар на открытый склад не добавится
+            try
+            {
+                warehouses[1].Add_Product(bp_1, 150);    // Сыпучий товар на открытый склад не добавится
+            }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Сыпучий товар не может быть добавлен на открытый склад");
+            }
             Console.WriteLine();
 
             // Перемещение товаров между складами
@@ -90,7 +104,7 @@ namespace KaspiLabPjt
 
             foreach (Employee e in warehouses[0].Warehouse_Employees)
             {
-                if (e is Loader) {Loader temp_e = (Loader)e; Console.Write($"Грузчик {temp_e.Competence} "); }
+                if (e is Loader) { Loader temp_e = (Loader)e; Console.Write($"Грузчик {temp_e.Competence} "); }
                 else if (e is Manager) { Manager temp_e = (Manager)e; Console.Write($"Менеджер {temp_e.Access_Level} "); }
 
                 Console.WriteLine($"{e.Person.LastName} {e.Person.Name}");
