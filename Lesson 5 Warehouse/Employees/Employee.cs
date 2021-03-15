@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lesson_5_Warehouse.Common_Structs;
 
 namespace Lesson_5_Warehouse.Employees
 {
     public abstract class Employee
     {
-        public string name;
+        public Person Person;
         
-        public Employee(string name)
+        public Employee(Person person)
         {
-            this.name = name;
+            Person = person;
         }
     }
 }

@@ -5,6 +5,8 @@ namespace Lesson_5_Warehouse.Warehouses
 {
     interface IWarehouse_Operations
     {
+        string Add_Employee(Employee e);
+        string Remove_Employee_by_IIN(string iin);
         string Add_Product(Product product, int quantity);
         string Transfer_Product(Warehouse other, Product product, int quantity);
         string Search_Product_By_SKU(string sku);

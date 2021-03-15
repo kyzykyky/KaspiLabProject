@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Lesson_5_Warehouse.Common_Structs;
 
 namespace Lesson_5_Warehouse.Employees
 {
@@ -11,7 +8,7 @@ namespace Lesson_5_Warehouse.Employees
         public enum Access_Levels { First=1, Second=2, Third=3 }
         public Access_Levels Access_Level { get; set; }
 
-        public Manager(string name, Access_Levels level) : base(name)
+        public Manager(Person person, Access_Levels level) : base(person)
         {
             Access_Level = level;
         }
